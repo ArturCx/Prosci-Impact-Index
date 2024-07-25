@@ -1,6 +1,8 @@
 import { Card, Text, Group, Button, Container, Box } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import classes from './ScatterChartCard.module.css';
 import { ChartScatter } from '@/components/ChartScatter';
+import { ScatterBuildModal } from '@/components/ScatterBuildModal';
 
 const mockdata = {
   image: './public/Card-Banner.svg',
@@ -10,9 +12,12 @@ const mockdata = {
 
 export function ScatterChartCard() {
   const { title, description } = mockdata;
+  const [isAddReportModalOpen, { close: closeAddReportModal, open: openAddReportModal }] =
+    useDisclosure(false);
 
   return (
     <Container className={classes.wrapper}>
+      <ScatterBuildModal opened={isAddReportModalOpen} onClose={closeAddReportModal} />
       <Card withBorder radius="md" p="md" className={classes.card} mt="md">
         <Card.Section className={classes.section}>
           <Box className={classes.chartbox}>
@@ -31,7 +36,12 @@ export function ScatterChartCard() {
             </Text>
           </Group>
           <Group mt="xs">
-            <Button color="var(--mantine-color-violet-6)" radius="md" style={{ flex: 1 }}>
+            <Button
+              onClick={openAddReportModal}
+              color="var(--mantine-color-violet-6)"
+              radius="md"
+              style={{ flex: 1 }}
+            >
               Completar Avaliação
             </Button>
           </Group>

@@ -1,6 +1,8 @@
 import { Card, Text, Group, Button, Container } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { ChartRadar } from '@/components/ChartRadar';
 import classes from './ChartsCard.module.css';
+import { RadarBuildModal } from '@/components/RadarBuildModal';
 
 const mockdata = {
   image: '/Card-Banner.svg',
@@ -10,9 +12,12 @@ const mockdata = {
 
 export function RadarChartCard() {
   const { title, description } = mockdata;
+  const [isAddReportModalOpen, { close: closeAddReportModal, open: openAddReportModal }] =
+    useDisclosure(false);
 
   return (
     <Container className={classes.wrapper}>
+      <RadarBuildModal opened={isAddReportModalOpen} onClose={closeAddReportModal} />
       <Card withBorder radius="md" p="md" className={classes.card} mt="md">
         <Card.Section className={classes.section}>
           <ChartRadar />
@@ -29,7 +34,12 @@ export function RadarChartCard() {
             </Text>
           </Group>
           <Group mt="xs">
-            <Button color="var(--mantine-color-violet-6)" radius="md" style={{ flex: 1 }}>
+            <Button
+              onClick={openAddReportModal}
+              color="var(--mantine-color-violet-6)"
+              radius="md"
+              style={{ flex: 1 }}
+            >
               Completar Avaliação
             </Button>
           </Group>
