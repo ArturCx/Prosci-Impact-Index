@@ -82,7 +82,7 @@ export const RadarBuildModal: React.FC<RadarBuildModalProps> = ({ opened, onClos
           mb="md"
         />
 
-        <Text className={classes.subtitle} mb="xs">
+        <Text className={classes.subtitle} mb="md">
           Avalie cada fator em uma escala de 1 a 3.{' '}
         </Text>
         <Text className={classes.subtitle}>1 = inadequado | 2 = adequado | 3 = excepcional</Text>
@@ -91,24 +91,26 @@ export const RadarBuildModal: React.FC<RadarBuildModalProps> = ({ opened, onClos
         <Divider my="xs" color="dark" />
       </Box>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Box className={classes.formWrapper}>
-          {currentQuestions.map((question, index) => {
-            const key = `${selected}.${index}` as `${number}.${number}`;
-            return (
-              <Radio.Group
-                key={form.key(key)}
-                label={`${index + 1} → ${question.label}`}
-                {...form.getInputProps(key)}
-              >
-                <Stack gap="xs" my="md">
-                  <Radio value="1" label="1" />
-                  <Radio value="2" label="2" />
-                  <Radio value="3" label="3" />
-                </Stack>
-              </Radio.Group>
-            );
-          })}
-        </Box>
+        {currentQuestions.map((question, index) => {
+          const key = `${selected}.${index}` as `${number}.${number}`;
+          return (
+            <>
+              <Box className={classes.boxWrapper}>
+                <Radio.Group
+                  key={form.key(key)}
+                  label={`${index + 1} → ${question.label}`}
+                  {...form.getInputProps(key)}
+                >
+                  <Stack className={classes.radioWrapper} my="xs">
+                    <Radio value="1" label="1" />
+                    <Radio value="2" label="2" />
+                    <Radio value="3" label="3" />
+                  </Stack>
+                </Radio.Group>
+              </Box>
+            </>
+          );
+        })}
         <Box className={classes.buttonWrapper}>
           <Button
             className={classes.button}
