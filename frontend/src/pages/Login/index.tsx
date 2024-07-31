@@ -10,32 +10,32 @@ import {
   Group,
   Button,
 } from '@mantine/core';
-import classes from './AuthenticationTitle.module.css';
+import classes from './Login.module.css';
 
-export function AuthenticationTitle() {
+export function Login() {
   return (
     <Container size={420} my={40}>
       <Title ta="center" className={classes.title}>
-        Welcome back!
+        Bem Vindo de Volta!
       </Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Do not have an account yet?{' '}
+        Não possui uma conta ainda?{' '}
         <Anchor size="sm" component="button">
-          Create account
+          Criar conta
         </Anchor>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <TextInput label="Email" placeholder="you@mantine.dev" required />
-        <PasswordInput label="Password" placeholder="Your password" required mt="md" />
+        <TextInput label="Email" placeholder="exemplo@email.com" required />
+        <PasswordInput label="Senha" placeholder="Sua Senha" required mt="md" />
         <Group justify="space-between" mt="lg">
-          <Checkbox label="Remember me" />
+          <Checkbox label="Lembrar acesso" />
           <Anchor component="button" size="sm">
-            Forgot password?
+            Esqueceu a senha?
           </Anchor>
         </Group>
         <Button fullWidth mt="xl">
-          Sign in
+          Entrar
         </Button>
       </Paper>
     </Container>
