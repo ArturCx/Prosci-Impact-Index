@@ -1,6 +1,16 @@
 import { IconX } from '@tabler/icons-react';
-import { Box, Button, Divider, Modal, Text, SegmentedControl, Radio, Stack } from '@mantine/core';
-import { useCallback, useMemo, useState } from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  Modal,
+  Text,
+  SegmentedControl,
+  Radio,
+  Stack,
+  Textarea,
+} from '@mantine/core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
 import classes from './RadarBuildModal.module.css';
 import questions from './questions';
@@ -27,6 +37,7 @@ const initialValues = questions.reduce(
 
 export const RadarBuildModal: React.FC<RadarBuildModalProps> = ({ opened, onClose }) => {
   const [selected, setSelected] = useState<string>('0');
+  const [textArea, setTextArea] = useState('');
 
   const { setData } = useRadarBuildData();
 
@@ -46,6 +57,19 @@ export const RadarBuildModal: React.FC<RadarBuildModalProps> = ({ opened, onClos
     );
     onClose();
   }, [form.values, onClose]);
+
+  useEffect(() => {
+    const storedTextArea = localStorage.getItem('textArea');
+    if (storedTextArea) {
+      setTextArea(storedTextArea);
+    }
+  }, []);
+
+  const handleInputChange = (event: { target: { value: any } }) => {
+    const newValue = event.target.value;
+    setTextArea(newValue);
+    localStorage.setItem('textArea', newValue);
+  };
 
   return (
     <Modal
@@ -111,6 +135,15 @@ export const RadarBuildModal: React.FC<RadarBuildModalProps> = ({ opened, onClos
             </>
           );
         })}
+        <Textarea
+          value={textArea}
+          onChange={handleInputChange}
+          className={classes.textarea}
+          mb="lg"
+          mt="lg"
+          autosize
+          label="Observações:"
+        />
         <Box className={classes.buttonWrapper}>
           <Button
             className={classes.button}

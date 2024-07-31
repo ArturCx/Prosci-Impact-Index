@@ -8,11 +8,11 @@ export function ChartScatter() {
   const chartData: ScatterChartSeries[] = [
     {
       color: 'blue',
-      name: 'Whatever',
+      name: 'Avaliação',
       data: [
         {
-          CM: data[0].reduce((acc, curr) => acc + curr, 0),
-          AO: data[1].reduce((acc, curr) => acc + curr, 0),
+          'Características da Mudança': data[0].reduce((acc, curr) => acc + curr, 0),
+          'Atributos Organizacionais': data[1].reduce((acc, curr) => acc + curr, 0),
         },
       ],
     },
@@ -26,7 +26,7 @@ export function ChartScatter() {
         h={350}
         miw={350}
         data={chartData}
-        dataKey={{ x: 'CM', y: 'AO' }}
+        dataKey={{ x: 'Características da Mudança', y: 'Atributos Organizacionais' }}
         referenceLines={[
           { y: 36, color: 'red.7' },
           { x: 36, color: 'red.7' },

@@ -1,6 +1,16 @@
 import { IconX } from '@tabler/icons-react';
-import { Box, Button, Divider, Modal, Text, SegmentedControl, Radio, Stack } from '@mantine/core';
-import { useCallback, useMemo, useState } from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  Modal,
+  Text,
+  SegmentedControl,
+  Radio,
+  Stack,
+  Textarea,
+} from '@mantine/core';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from '@mantine/form';
 import classes from './ScatterBuildModal.module.css';
 import questions from './questions';
@@ -27,6 +37,7 @@ const initialValues = questions.reduce(
 
 export const ScatterBuildModal: React.FC<ScatterBuildModalProps> = ({ opened, onClose }) => {
   const [selected, setSelected] = useState<string>('0');
+  const [textArea, setTextArea] = useState('');
 
   const { setData } = useScatterBuildData();
 
@@ -46,6 +57,19 @@ export const ScatterBuildModal: React.FC<ScatterBuildModalProps> = ({ opened, on
     );
     onClose();
   }, [form.values, onClose]);
+
+  useEffect(() => {
+    const storedTextArea = localStorage.getItem('textArea');
+    if (storedTextArea) {
+      setTextArea(storedTextArea);
+    }
+  }, []);
+
+  const handleInputChange = (event: { target: { value: any } }) => {
+    const newValue = event.target.value;
+    setTextArea(newValue);
+    localStorage.setItem('textArea', newValue);
+  };
 
   return (
     <Modal
@@ -97,6 +121,7 @@ export const ScatterBuildModal: React.FC<ScatterBuildModalProps> = ({ opened, on
                 <Radio.Group
                   key={form.key(key)}
                   label={`${index + 1} → ${question.label}`}
+                  description={`${question.description}`}
                   {...form.getInputProps(key)}
                 >
                   <Stack className={classes.radioWrapper} my="xs">
@@ -111,6 +136,15 @@ export const ScatterBuildModal: React.FC<ScatterBuildModalProps> = ({ opened, on
             </>
           );
         })}
+        <Textarea
+          value={textArea}
+          onChange={handleInputChange}
+          className={classes.textarea}
+          mb="lg"
+          mt="lg"
+          autosize
+          label="Fatores que criam os maiores impactos ou riscos para o projeto:"
+        />
         <Box className={classes.buttonWrapper}>
           <Button
             className={classes.button}
