@@ -14,6 +14,7 @@ interface AuthContext {
   isLoggedIn: boolean;
   user?: User;
   login: (payload: LoginPayload) => Promise<User>;
+  logout: () => void;
 }
 
 const AuthContext = React.createContext<AuthContext>(undefined as unknown as AuthContext);
@@ -36,21 +37,30 @@ const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
         throw new Error('Failed to login');
       }
 
-      const { user: _user } = await response.json();
+      const data = await response.json();
+      const { access_token, user: _user } = data;
+      localStorage.setItem('jwtToken', access_token);
       setIsLoggedIn(true);
       setUser(_user);
-      return user as User;
+      return _user as User;
     },
     [setIsLoggedIn, setUser]
   );
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('jwtToken');
+    setIsLoggedIn(false);
+    setUser(undefined);
+  }, [setIsLoggedIn, setUser]);
 
   const value = useMemo<AuthContext>(
     () => ({
       isLoggedIn,
       user,
       login,
+      logout,
     }),
-    [isLoggedIn, user, login]
+    [isLoggedIn, user, login, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
