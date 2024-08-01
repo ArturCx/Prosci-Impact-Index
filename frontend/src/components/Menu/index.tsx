@@ -13,8 +13,8 @@ export function Menu() {
         <TitleEditorCard />
       </Container>
       <Container className={classes.wrapper} mb={30}>
-        <RadarChartCard />
-        <ScatterChartCard />
+        <RadarChartCard initialButtonVisibility />
+        <ScatterChartCard initialButtonVisibility />
       </Container>
     </>
   );

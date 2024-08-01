@@ -1,5 +1,6 @@
 import { Card, Text, Group, Button, Container, Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
 import classes from './ScatterChartCard.module.css';
 import { ChartScatter } from '@/components/ChartScatter';
 import { ScatterBuildModal } from '@/components/ScatterBuildModal';
@@ -10,10 +11,19 @@ const mockdata = {
   description: 'Características da Mudança e Atributos Organizacionais',
 };
 
-export function ScatterChartCard() {
+interface ScatterChartCardProps {
+  initialButtonVisibility?: boolean;
+}
+
+export function ScatterChartCard({ initialButtonVisibility = true }: ScatterChartCardProps) {
   const { title, description } = mockdata;
   const [isAddReportModalOpen, { close: closeAddReportModal, open: openAddReportModal }] =
     useDisclosure(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(initialButtonVisibility);
+
+  useEffect(() => {
+    setIsButtonVisible(initialButtonVisibility);
+  }, [initialButtonVisibility]);
 
   return (
     <Container className={classes.wrapper}>
@@ -36,14 +46,16 @@ export function ScatterChartCard() {
             </Text>
           </Group>
           <Group mt="xs">
-            <Button
-              onClick={openAddReportModal}
-              color="var(--mantine-color-violet-6)"
-              radius="md"
-              style={{ flex: 1 }}
-            >
-              Completar Avaliação
-            </Button>
+            {isButtonVisible && (
+              <Button
+                onClick={openAddReportModal}
+                color="var(--mantine-color-violet-6)"
+                radius="md"
+                style={{ flex: 1 }}
+              >
+                Completar Avaliação
+              </Button>
+            )}
           </Group>
         </Card.Section>
       </Card>

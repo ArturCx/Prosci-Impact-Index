@@ -2,6 +2,8 @@ import { Card, Image, Text, Group, Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { DuvidasModal } from '@/components/DuvidasModal';
 import classes from './Cards.module.css';
+import { MapaDeRevisãoModal } from '@/components/MapaDeRevisãoModal';
+import { ReportModal } from '@/components/ReportModal';
 
 const mockdata = {
   image: '/Card-Banner.svg',
@@ -11,12 +13,23 @@ const mockdata = {
 
 export function BasicCard() {
   const { image, title, description } = mockdata;
+
   const [isDuvidasModalOpen, { close: closeDuvidasModal, open: openDuvidasModal }] =
+    useDisclosure(false);
+
+  const [
+    isMapaDeRevisãoModalOpen,
+    { close: closeMapaDeRevisãoModal, open: openMapaDeRevisãoModal },
+  ] = useDisclosure(false);
+
+  const [isReportModalOpen, { close: closeReportModa, open: openReportModa }] =
     useDisclosure(false);
 
   return (
     <>
       <DuvidasModal opened={isDuvidasModalOpen} onClose={closeDuvidasModal} />
+      <MapaDeRevisãoModal opened={isMapaDeRevisãoModalOpen} onClose={closeMapaDeRevisãoModal} />
+      <ReportModal opened={isReportModalOpen} onClose={closeReportModa} />
       <Card withBorder radius="md" p="md" className={classes.card}>
         <Card.Section>
           <Image src={image} alt={title} height={180} />
@@ -42,10 +55,20 @@ export function BasicCard() {
           >
             Dúvidas
           </Button>
-          <Button color="var(--mantine-color-violet-7)" radius="md" style={{ flex: 1 }}>
+          <Button
+            onClick={openMapaDeRevisãoModal}
+            color="var(--mantine-color-violet-7)"
+            radius="md"
+            style={{ flex: 1 }}
+          >
             Mapa de Revisão
           </Button>
-          <Button color="var(--mantine-color-violet-8)" radius="md" style={{ flex: 1 }}>
+          <Button
+            onClick={openReportModa}
+            color="var(--mantine-color-violet-8)"
+            radius="md"
+            style={{ flex: 1 }}
+          >
             Report
           </Button>
         </Group>

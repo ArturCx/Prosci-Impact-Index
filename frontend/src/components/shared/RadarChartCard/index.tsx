@@ -1,5 +1,6 @@
 import { Card, Text, Group, Button, Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
 import { ChartRadar } from '@/components/ChartRadar';
 import classes from './ChartsCard.module.css';
 import { RadarBuildModal } from '@/components/RadarBuildModal';
@@ -10,10 +11,19 @@ const mockdata = {
   description: 'Saúde do projeto',
 };
 
-export function RadarChartCard() {
+interface RadarChartCardProps {
+  initialButtonVisibility?: boolean;
+}
+
+export function RadarChartCard({ initialButtonVisibility = true }: RadarChartCardProps) {
   const { title, description } = mockdata;
   const [isRadarChartModalOpen, { close: closeRadarChartModal, open: openRadarChartModal }] =
     useDisclosure(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(initialButtonVisibility);
+
+  useEffect(() => {
+    setIsButtonVisible(initialButtonVisibility);
+  }, [initialButtonVisibility]);
 
   return (
     <Container className={classes.wrapper}>
@@ -34,14 +44,16 @@ export function RadarChartCard() {
             </Text>
           </Group>
           <Group mt="xs">
-            <Button
-              onClick={openRadarChartModal}
-              color="var(--mantine-color-violet-6)"
-              radius="md"
-              style={{ flex: 1 }}
-            >
-              Completar Avaliação
-            </Button>
+            {isButtonVisible && (
+              <Button
+                onClick={openRadarChartModal}
+                color="var(--mantine-color-violet-6)"
+                radius="md"
+                style={{ flex: 1 }}
+              >
+                Completar Avaliação
+              </Button>
+            )}
           </Group>
         </Card.Section>
       </Card>
