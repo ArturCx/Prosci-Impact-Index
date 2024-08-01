@@ -1,0 +1,38 @@
+.outerwrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    max-width: 1100px;
+  }
+  
+  .modalheader {
+    display: flex;
+    justify-content: right;
+  }
+  
+  .closebutton {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: right;
+    background: none repeat scroll 0 0 transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+ .statement{
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+ }

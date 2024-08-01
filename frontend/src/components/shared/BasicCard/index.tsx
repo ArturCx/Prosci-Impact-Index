@@ -1,4 +1,6 @@
 import { Card, Image, Text, Group, Button } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { DuvidasModal } from '@/components/DuvidasModal';
 import classes from './Cards.module.css';
 
 const mockdata = {
@@ -9,35 +11,45 @@ const mockdata = {
 
 export function BasicCard() {
   const { image, title, description } = mockdata;
+  const [isDuvidasModalOpen, { close: closeDuvidasModal, open: openDuvidasModal }] =
+    useDisclosure(false);
 
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section>
-        <Image src={image} alt={title} height={180} />
-      </Card.Section>
+    <>
+      <DuvidasModal opened={isDuvidasModalOpen} onClose={closeDuvidasModal} />
+      <Card withBorder radius="md" p="md" className={classes.card}>
+        <Card.Section>
+          <Image src={image} alt={title} height={180} />
+        </Card.Section>
 
-      <Card.Section className={classes.section} mt="md">
-        <Group justify="apart">
-          <Text fz="lg" fw={500}>
-            {title}
+        <Card.Section className={classes.section} mt="md">
+          <Group justify="apart">
+            <Text fz="lg" fw={500}>
+              {title}
+            </Text>
+          </Group>
+          <Text fz="sm" mt="xs">
+            {description}
           </Text>
-        </Group>
-        <Text fz="sm" mt="xs">
-          {description}
-        </Text>
-      </Card.Section>
+        </Card.Section>
 
-      <Group mt="xs">
-        <Button color="var(--mantine-color-violet-6)" radius="md" style={{ flex: 1 }}>
-          Dúvidas
-        </Button>
-        <Button color="var(--mantine-color-violet-7)" radius="md" style={{ flex: 1 }}>
-          Mapa de Revisão
-        </Button>
-        <Button color="var(--mantine-color-violet-8)" radius="md" style={{ flex: 1 }}>
-          Report
-        </Button>
-      </Group>
-    </Card>
+        <Group mt="xs">
+          <Button
+            onClick={openDuvidasModal}
+            color="var(--mantine-color-violet-6)"
+            radius="md"
+            style={{ flex: 1 }}
+          >
+            Dúvidas
+          </Button>
+          <Button color="var(--mantine-color-violet-7)" radius="md" style={{ flex: 1 }}>
+            Mapa de Revisão
+          </Button>
+          <Button color="var(--mantine-color-violet-8)" radius="md" style={{ flex: 1 }}>
+            Report
+          </Button>
+        </Group>
+      </Card>
+    </>
   );
 }

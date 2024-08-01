@@ -12,12 +12,12 @@ const mockdata = {
 
 export function RadarChartCard() {
   const { title, description } = mockdata;
-  const [isAddReportModalOpen, { close: closeAddReportModal, open: openAddReportModal }] =
+  const [isRadarChartModalOpen, { close: closeRadarChartModal, open: openRadarChartModal }] =
     useDisclosure(false);
 
   return (
     <Container className={classes.wrapper}>
-      <RadarBuildModal opened={isAddReportModalOpen} onClose={closeAddReportModal} />
+      <RadarBuildModal opened={isRadarChartModalOpen} onClose={closeRadarChartModal} />
       <Card withBorder radius="md" p="md" className={classes.card} mt="md">
         <Card.Section className={classes.section}>
           <ChartRadar />
@@ -35,7 +35,7 @@ export function RadarChartCard() {
           </Group>
           <Group mt="xs">
             <Button
-              onClick={openAddReportModal}
+              onClick={openRadarChartModal}
               color="var(--mantine-color-violet-6)"
               radius="md"
               style={{ flex: 1 }}
