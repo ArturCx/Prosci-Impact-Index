@@ -37,7 +37,7 @@ After, to run all apps and packages on **frontend** environment, run the followi
 yarn run dev
 ```
 
-###Open on Browser
+### Open on Browser
 
 To open the project, open your browser and go to
 
