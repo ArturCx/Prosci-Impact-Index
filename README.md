@@ -44,3 +44,17 @@ To open the project, open your browser and go to
 ```
 http://127.0.0.1:5173/
 ```
+
+### Login 
+
+You can acess the homepage by the mocked user2
+
+Email:
+```
+user2@gmail.com
+```
+
+Password
+```
+senha123
+```
